@@ -8,7 +8,7 @@ import de.aditosoftware.vaadin.addon.testlabel.TestLabel;
 import javax.servlet.annotation.WebServlet;
 
 @Theme("demo")
-@Title("MyComponent Add-on Demo")
+@Title("TestLabel Add-on Demo")
 @SuppressWarnings("serial")
 public class DemoUI extends UI {
 
