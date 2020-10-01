@@ -28,6 +28,20 @@
 		<Vaadin-Addon>${project.artifactId}-${project.version}.jar</Vaadin-Addon>
 	</properties>
 
+	<distributionManagement>
+		<repository>
+			<id>adito.m2</id>
+			<name>releases</name>
+			<url>${repository.releases}</url>
+		</repository>
+		<snapshotRepository>
+			<id>adito.m2</id>
+			<name>snapshots</name>
+			<url>${repository.snapshots}</url>
+			<uniqueVersion>false</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
+
     <!--
 	<organization>
 		<name>My Name</name>
