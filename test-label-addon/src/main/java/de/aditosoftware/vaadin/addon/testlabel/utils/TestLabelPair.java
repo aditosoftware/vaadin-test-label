@@ -1,4 +1,4 @@
-package de.aditosoftware.vaadin.addon.utils;
+package de.aditosoftware.vaadin.addon.testlabel.utils;
 
 import java.util.Objects;
 

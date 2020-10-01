@@ -1,9 +1,9 @@
-package de.aditosoftware.vaadin.addon.demo;
+package de.aditosoftware.vaadin.addon.testlabel.demo;
 
 import com.vaadin.annotations.*;
 import com.vaadin.server.*;
 import com.vaadin.ui.*;
-import de.aditosoftware.vaadin.addon.TestLabel;
+import de.aditosoftware.vaadin.addon.testlabel.TestLabel;
 
 import javax.servlet.annotation.WebServlet;
 

@@ -1,6 +1,6 @@
-package de.aditosoftware.vaadin.addon.utils;
+package de.aditosoftware.vaadin.addon.testlabel.utils;
 
-import de.aditosoftware.vaadin.addon.TestLabel;
+import de.aditosoftware.vaadin.addon.testlabel.TestLabel;
 
 /**
  * Defines a global interceptor for the {@link TestLabel}. This can define if the TestLabel is

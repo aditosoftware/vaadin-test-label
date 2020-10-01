@@ -1,4 +1,4 @@
-package de.aditosoftware.vaadin.addon.client;
+package de.aditosoftware.vaadin.addon.testlabel.client;
 
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
@@ -6,7 +6,7 @@ import com.vaadin.client.*;
 import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.client.extensions.AbstractExtensionConnector;
 import com.vaadin.shared.ui.Connect;
-import de.aditosoftware.vaadin.addon.TestLabelExtension;
+import de.aditosoftware.vaadin.addon.testlabel.TestLabelExtension;
 
 import java.util.*;
 

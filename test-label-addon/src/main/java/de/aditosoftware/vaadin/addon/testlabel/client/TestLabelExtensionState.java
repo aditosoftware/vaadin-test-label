@@ -1,4 +1,4 @@
-package de.aditosoftware.vaadin.addon.client;
+package de.aditosoftware.vaadin.addon.testlabel.client;
 
 import com.vaadin.shared.communication.SharedState;
 

@@ -1,7 +1,7 @@
-package de.aditosoftware.vaadin.addon;
+package de.aditosoftware.vaadin.addon.testlabel;
 
 import com.vaadin.ui.AbstractComponent;
-import de.aditosoftware.vaadin.addon.utils.*;
+import de.aditosoftware.vaadin.addon.testlabel.utils.*;
 
 import java.util.*;
 
