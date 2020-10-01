@@ -12,6 +12,10 @@ import javax.servlet.annotation.WebServlet;
 @SuppressWarnings("serial")
 public class DemoUI extends UI {
 
+  static {
+    TestLabel.setInterceptor(null);
+  }
+
   @WebServlet(value = "/*", asyncSupported = true)
   @VaadinServletConfiguration(productionMode = false, ui = DemoUI.class)
   public static class Servlet extends VaadinServlet {}
@@ -22,7 +26,7 @@ public class DemoUI extends UI {
     // Initialize our new UI component
     final Button component = new Button();
 
-    TestLabel.apply(component).setLabel("type", "button");
+    TestLabel.apply(component).setLabel("type", "button").setLabel("test", "test");
 
     // Show it in the middle of the screen
     final VerticalLayout layout = new VerticalLayout();
