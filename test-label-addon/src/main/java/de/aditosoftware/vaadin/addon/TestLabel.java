@@ -3,6 +3,8 @@ package de.aditosoftware.vaadin.addon;
 import com.vaadin.ui.AbstractComponent;
 import de.aditosoftware.vaadin.addon.utils.*;
 
+import java.util.*;
+
 /**
  * Implements a wrapper for the actual {@link TestLabelExtension} with some convenience methods. To
  * create a new TestLabel for a given component, just use {@link #apply(AbstractComponent)}.
@@ -67,12 +69,13 @@ public class TestLabel {
     // If there is a interceptor and the interceptor defines inactivity, return a dummy TestLabel.
     if (interceptor != null && !interceptor.active()) return new TestLabel(null);
 
-    // TODO: Check for existing extension on the component.
+    // Try to load an existing extension from the component. The variable will be null if there is
+    // no existing extension on the component.
+    TestLabelExtension extension = getExistingExtension(component);
+    // Create the extension and apply to the component if there is none yet.
+    if (extension == null) extension = new TestLabelExtension(component);
 
-    // Create the extension and register it on the given component.
-    TestLabelExtension extension = new TestLabelExtension(component);
-
-    // Create a new instance of the TestLabel with the created extension.
+    // Create a new instance of the TestLabel with the extension.
     return new TestLabel(extension);
   }
 
@@ -117,6 +120,31 @@ public class TestLabel {
   }
 
   /**
+   * Will return all existing labels as a Key/Value map. If there is no extension, then an empty map
+   * will be return by default. The returned map is always immutable.
+   *
+   * @return The map with all labels. Always immutable and never null.
+   */
+  public Map<String, String> getLabels() {
+    // If there is no extension, just return an empty map to avoid null values.
+    if (extension == null) return Collections.emptyMap();
+
+    // Load the labels from the extension and wrap it into a unmodifiable map.
+    return Collections.unmodifiableMap(extension.getLabels());
+  }
+
+  /**
+   * Will return if this TestLabel runs in dry mode. Dry mode in this context means, that the
+   * TestLabel is not attached to a real component and only works as something like a dummy. A
+   * TestLabel is in dry mode when the global interceptor defines an inactive TestLabel.
+   *
+   * @return If this TestLabel is in dry mode.
+   */
+  public boolean isDry() {
+    return extension == null;
+  }
+
+  /**
    * Will apply the given {@link Runnable} safely when an extension is available. If the {@link
    * #extension} is null, the runnable WON'T be executed.
    *
@@ -125,6 +153,22 @@ public class TestLabel {
   private void applyExtensionAware(Runnable scope) {
     // Run the runnable if the extension is available.
     if (extension != null) scope.run();
+  }
+
+  /**
+   * Will check if there is already an extension of type {@link TestLabelExtension} registered on
+   * the given component and will return this instance if available. If yet no extension exists,
+   * this will just return null.
+   *
+   * @param component The component to check against.
+   * @return The instance of the extension or null if non found.
+   */
+  private static TestLabelExtension getExistingExtension(AbstractComponent component) {
+    return component.getExtensions().stream()
+        .filter(it -> it instanceof TestLabelExtension)
+        .map(TestLabelExtension.class::cast)
+        .findFirst()
+        .orElse(null);
   }
 
   /**
