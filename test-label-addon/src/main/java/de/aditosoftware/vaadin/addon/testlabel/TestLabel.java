@@ -52,6 +52,19 @@ public class TestLabel {
   }
 
   /**
+   * Will return the current interceptor which is statically used by the TestLabel. This can be used
+   * to determine if testing shall be possible. This will never return null.
+   *
+   * @return The current interceptor
+   */
+  public static TestLabelInterceptor getInterceptor() {
+    // Catch nulls just to be sure.
+    if (interceptor != null) return interceptor;
+
+    return DefaultTestLabelInterceptor.INSTANCE;
+  }
+
+  /**
    * Will register a new {@link TestLabel} on the given {@link AbstractComponent}. This will return
    * an instanceof of {@link TestLabel} which supports further interaction with the labels. This
    * will also check if there is already an TestLabelExtension registered on the component. If there
@@ -77,6 +90,21 @@ public class TestLabel {
 
     // Create a new instance of the TestLabel with the extension.
     return new TestLabel(extension);
+  }
+
+  /**
+   * Will check if the TestLabel has been previously applied to the given component. This will also
+   * check on the current interceptor if the testing is even available.
+   *
+   * @param component The component to check against.
+   * @return If the TestLabel has been previously applied to the given component.
+   */
+  public static boolean isApplied(AbstractComponent component) {
+    // If there is a interceptor and the interceptor defines inactivity, return false by default.
+    if (interceptor != null && !interceptor.active()) return false;
+
+    // Just delegate to the extension check method.
+    return hasExistingExtension(component);
   }
 
   /**
@@ -169,6 +197,18 @@ public class TestLabel {
         .map(TestLabelExtension.class::cast)
         .findFirst()
         .orElse(null);
+  }
+
+  /**
+   * Will check if there is an extension of type {@link TestLabelExtension} registered on the given
+   * component. This will not return the actual instance (see {@link
+   * #getExistingExtension(AbstractComponent)}), instead is returns if there is a instance.
+   *
+   * @param component The component to check against.
+   * @return If there is an existing extension on the component.
+   */
+  private static boolean hasExistingExtension(AbstractComponent component) {
+    return component.getExtensions().stream().anyMatch(it -> it instanceof TestLabelExtension);
   }
 
   /**
